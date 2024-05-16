@@ -1,0 +1,68 @@
+CREATE TABLE Clientes(
+ID_cliente INT AUTO_INCREMENT PRIMARY KEY,
+Rut_Cliente VARCHAR(50),
+Nombre_clientes VARCHAR(50));
+
+CREATE TABLE Empleados(
+ID_Empleados INT AUTO_INCREMENT PRIMARY KEY,
+ID_sucursal INT,
+Rut_empleados VARCHAR(50),
+Nombre_empleados VARCHAR(50),
+cargo_Empleado VARCHAR(50),
+Contacto VARCHAR(50),
+FOREIGN KEY (ID_Sucursal) REFERENCES Sucursal(ID_Sucursal));
+
+CREATE TABLE inventario(
+ID_Inventario INT AUTO_INCREMENT PRIMARY KEY,
+Nombre_Producto VARCHAR(50),
+Stock VARCHAR(50));
+
+CREATE TABLE Sucursal(
+ID_Sucursal INT AUTO_INCREMENT PRIMARY KEY,
+Nombre_Sucursal VARCHAR(50),
+Ubicacion VARCHAR(50),
+Contacto VARCHAR(50));
+
+CREATE TABLE Menu(
+ID_Menu INT AUTO_INCREMENT PRIMARY KEY,
+Tipo_Hamburguesa VARCHAR(50),
+Descripcion VARCHAR(100),
+Precio VARCHAR(50));
+
+CREATE TABLE Pedidos(
+ID_Pedido INT AUTO_INCREMENT PRIMARY KEY,
+Fecha DATETIME,
+ID_Cliente INT,
+ID_Sucursal INT,
+FOREIGN KEY (ID_Sucursal) REFERENCES Sucursal(ID_Sucursal),
+FOREIGN KEY (ID_Cliente) REFERENCES Clientes(ID_cliente));
+
+CREATE TABLE Detalles_Pedidos(
+ID_Detalle INT AUTO_INCREMENT PRIMARY KEY,
+ID_Pedido INT,
+id_Menu INT,
+Cantidad VARCHAR(50),
+Subtotal decimal(10,2),
+FOREIGN KEY (ID_Pedido) REFERENCES Pedidos(ID_Pedido),
+FOREIGN KEY (ID_Menu) REFERENCES Menu(ID_Menu));
+
+INSERT INTO Clientes(Rut_Cliente, Nombre_clientes)
+VALUES('21.454.767-8','Alexis');
+
+INSERT INTO Empleados(Rut_empleados, Nombre_empleados, cargo_Empleado, Contacto)
+VALUES('18.454.878-9','Bryan','Logistica','b.araya@gmail.com');
+
+INSERT INTO inventario(Nombre_Producto, Stock)
+VALUES('Pack de hamburguesas','70');
+
+INSERT INTO Sucursal(Nombre_Sucursal, Ubicacion, Contacto)
+VALUES('Burger Town','independecia 556','+56956456754');
+
+INSERT INTO Menu(Tipo_Hamburguesa, Descripcion, Precio)
+VALUES('Big Burguer','Una hamburguesa doble con queso y salsa secreta','9000');
+
+INSERT INTO Pedidos(Fecha)
+VALUES('2024-05-11');
+
+INSERT INTO Detalles_Pedidos(Cantidad, Subtotal)
+VALUES ('2','18000');
